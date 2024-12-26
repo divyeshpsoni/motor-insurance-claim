@@ -14,7 +14,6 @@ import {
 
 const ObjectId = mongoose.Schema.Types.ObjectId;
 
-// claimSchema
 const claimSchema = new mongoose.Schema(
   {
     claimNumber: {
