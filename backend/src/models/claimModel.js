@@ -123,6 +123,32 @@ const claimSchema = new mongoose.Schema(
       ref: "garages",
       required: true,
     },
+    // repairBillAmount: {
+    //   type: Number,
+    //   required: false,
+    //   default: 0,
+    // },
+    // documents: {
+    //   insurancePolicyCopy: {
+    //     type: String,
+    //     required: true,
+    //   },
+    //   rcCopy: {
+    //     type: String,
+    //     required: true,
+    //   },
+    //   damagedVehicleImages: {
+    //     type: [String],
+    //     validate: [
+    //       (val) => val.length <= 5,
+    //       "You can upload a maximum of 5 images only.",
+    //     ],
+    //   },
+    //   repairPaymentReceipt: {
+    //     type: String,
+    //     required: false,
+    //   },
+    // },
   },
   {
     timestamps: true,
