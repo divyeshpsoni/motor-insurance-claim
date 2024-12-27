@@ -1,3 +1,4 @@
+import path from "path";
 import { paginate } from "../common/pagination.js";
 import { validateUserAccess } from "../common/validateUserAccess.js";
 import { model } from "../models/index.js";
@@ -5,14 +6,31 @@ import { model } from "../models/index.js";
 // create claim
 export const createClaim = async (req, res) => {
   const userID = req?.user?.userID;
-  const userInput = { ...req?.body, userID };
 
   try {
+    const insurancePolicyCopy = req?.files?.insurancePolicyCopy?.[0];
+    const rcCopy = req?.files?.rcCopy?.[0];
+    const damagedVehicleImages = req?.files?.damagedVehicleImages;
+
+    const documentsFilePaths = {
+      insurancePolicyCopy: insurancePolicyCopy
+        ? path.join("uploads", insurancePolicyCopy.fileName)
+        : undefined,
+      rcCopy: rcCopy ? path.join("uploads", rcCopy.fileName) : undefined,
+      damagedVehicleImages: damagedVehicleImages
+        ? path.join("uploads", damagedVehicleImages.fileName)
+        : undefined,
+    };
+
+    const userInput = {
+      ...req?.body,
+      userID,
+      documents: documentsFilePaths,
+    };
+
     const newClaim = await model.claimModel.create(userInput);
-    return res.json({
-      status: 201,
-      data: newClaim,
-    });
+
+    res.status(201).json({ data: newClaim });
   } catch (error) {
     res.status(500).json({ error: "Internal server error" });
   }

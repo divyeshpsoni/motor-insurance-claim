@@ -15,6 +15,9 @@ const app = express();
 // Parse json requests
 app.use(express.json());
 
+// Serve static files from the `uploads` folder
+app.use("/uploads", express.static(path.join("src/uploads")));
+
 // PORT
 const PORT = process.env.PORT || 5000;
 
